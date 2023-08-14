@@ -1,16 +1,12 @@
+FROM alpine:3.16
 
-FROM alpine:3.18
-
-RUN apk add nginx
-RUN apk add openssl
-RUN mkdir /etc/nginx/ssl
-RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key \
-      -subj "/C=MA/ST=BG/L=BENGUERIR/O=1337/OU=1337/CN=yed-dyb.42.fr/UID=yed-dyb"
-
-# RUN mkdir -p /var/run/nginx
-COPY conf/nginx.conf /etc/nginx/nginx.conf
-
-# RUN chmod 755 /var/www/html
-# RUN chown -R www-data:www-data /var/www/html
+RUN	apk update && apk upgrade && apk add --no-cache nginx && apk add openssl
+WORKDIR /etc/nginx
+RUN mkdir ssl
+RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
+	-out ssl/oouazize.42.fr.crt \
+	-keyout ssl/oouazize.42.fr.key \
+	-subj "/C=MA/ST=oouazize/L=oouazize/O=42 School/OU=oouazize.42.fr/CN=oouazize.42.fr/"
+COPY ./conf/nginx.conf ./nginx.conf
 
 CMD ["nginx", "-g", "daemon off;"]
