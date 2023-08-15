@@ -9,5 +9,7 @@ RUN mkdir /var/run/mysqld && chmod 777 /var/run/mysqld && \
     sed -i "s/skip-networking/skip-networking=0/g" /etc/my.cnf.d/mariadb-server.cnf && \
     chmod +x /tmp/script.sh
 
+RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
+
 USER mysql
 ENTRYPOINT [ "sh", "/tmp/script.sh" ]
