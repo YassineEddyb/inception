@@ -1,19 +1,19 @@
 version: "3"
 services:
-  mariadb:
-    build:
-      context: ./requirements/mariadb
-      args:
-        DB_NAME: ${MYSQL_DATABASE}
-        DB_USER: ${MYSQL_USER}
-        DB_PASS: ${MYSQL_PASSWORD}
-        DB_ROOTPASS: ${MYSQL_ROOT_PASSWORD}
-    container_name: mariadb
-    env_file: .env
-    volumes:
-      - db:/var/lib/mysql
-    networks:
-      - inception
+  # mariadb:
+  #   build:
+  #     context: ./requirements/mariadb
+  #     args:
+  #       DB_NAME: ${MYSQL_DATABASE}
+  #       DB_USER: ${MYSQL_USER}
+  #       DB_PASS: ${MYSQL_PASSWORD}
+  #       DB_ROOTPASS: ${MYSQL_ROOT_PASSWORD}
+  #   container_name: mariadb
+  #   env_file: .env
+  #   volumes:
+  #     - db:/var/lib/mysql
+  #   networks:
+  #     - inception
 
   wordpress:
     build:
@@ -27,8 +27,8 @@ services:
     env_file: .env
     volumes:
       - wordpress:/var/www/html
-    depends_on:
-      - mariadb
+    # depends_on:
+    #   - mariadb
     networks:
       - inception
 
