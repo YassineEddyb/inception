@@ -1,5 +1,7 @@
 #!bin/sh
 
+
+
 mysql -e "USE mysql;"
 mysql -e "FLUSH PRIVILEGES;"
 mysql -e "DELETE FROM mysql.user WHERE User='';"
