@@ -1,4 +1,5 @@
 version: "3"
+
 services:
   # mariadb:
   #   build:
@@ -15,22 +16,22 @@ services:
   #   networks:
   #     - inception
 
-  wordpress:
-    build:
-      context: ./requirements/wordpress
-      args:
-        DB_NAME: ${MYSQL_DATABASE}
-        DB_USER: ${MYSQL_USER}
-        DB_PASS: ${MYSQL_PASSWORD}
-        DB_ROOTPASS: ${MYSQL_ROOT_PASSWORD}
-    container_name: wordpress
-    env_file: .env
-    volumes:
-      - wordpress:/var/www/html
-    # depends_on:
-    #   - mariadb
-    networks:
-      - inception
+  # wordpress:
+  #   build:
+  #     context: ./requirements/wordpress
+  #     args:
+  #       DB_NAME: ${MYSQL_DATABASE}
+  #       DB_USER: ${MYSQL_USER}
+  #       DB_PASS: ${MYSQL_PASSWORD}
+  #       DB_ROOTPASS: ${MYSQL_ROOT_PASSWORD}
+  #   container_name: wordpress
+  #   env_file: .env
+  #   volumes:
+  #     - wordpress:/var/www/html
+  #   # depends_on:
+  #   #   - mariadb
+  #   networks:
+  #     - inception
 
   nginx:
     build:
@@ -38,8 +39,8 @@ services:
     container_name: nginx
     volumes:
       - wordpress:/var/www/html
-    depends_on:
-      - wordpress
+    # depends_on:
+    #   - wordpress
     ports:
       - 443:443
     networks:
