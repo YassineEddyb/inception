@@ -1,15 +1,38 @@
-FROM alpine:3.16
-ARG DB_NAME DB_USER DB_PASS DB_HOST
+FROM debian:buster
 
-RUN apk update && apk upgrade && apk add --no-cache \
-    php8 php8-fpm php8-mysqli php8-mbstring php8-phar curl && \
-    sed -i 's/127.0.0.1:9000/9000/g' /etc/php8/php-fpm.d/www.conf
+RUN apt-get update && apt-get upgrade -y
 
-WORKDIR /var/www/html
+RUN apt-get install -y php7.3 php-fpm php-mysql mariadb-client
 
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
-    chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
+RUN apt-get -y install wget
 
-COPY tools/create.sh /tmp/create.sh
+RUN wget https://fr.wordpress.org/wordpress-6.0-fr_FR.tar.gz -P /var/www
 
-ENTRYPOINT [ "sh", "/tmp/create.sh" ]
+RUN cd /var/www && tar -xzf wordpress-6.0-fr_FR.tar.gz && rm wordpress-6.0-fr_FR.tar.gz
+
+RUN	chown -R root:root /var/www/wordpress
+
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+
+RUN chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
+
+WORKDIR /var/www/wordpress
+
+COPY ./tools/script.sh /tmp/script.sh
+
+RUN chmod +x /tmp/script.sh
+
+ENV WP_TITLE=MyBlog
+ENV WP_ADMIN_USR=yed-dyb
+ENV WP_ADMIN_PWD=wppass
+ENV WP_ADMIN_EMAIL=dyb@example.com
+ENV WP_USR=user1
+ENV WP_EMAIL=user1@example.com
+ENV WP_PWD=yed-dyb123
+ENV MYSQL_HOSTNAME=mariadb
+ENV MYSQL_DATABASE=wordpress
+ENV MYSQL_USER=yed-dyb
+ENV MYSQL_PASSWORD=wppass
+ENV MYSQL_ROOT_PASSWORD=rootpass
+
+CMD [ "sh", "/tmp/script.sh" ]

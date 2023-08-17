@@ -10,5 +10,6 @@ RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/ngin
 
 COPY conf/nginx.conf /etc/nginx/conf.d/nginx.conf
 
+RUN touch /var/www/html/index.php
 
 CMD [ "nginx", "-g", "daemon off;" ]

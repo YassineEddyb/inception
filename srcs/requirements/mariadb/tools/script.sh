@@ -2,11 +2,10 @@
 
 service mysql start
 
-mysql -e "CREATE DATABASE wordpress CHARACTER SET utf8 COLLATE utf8_general_ci;"
-# mysql -e "CREATE USER 'yed-dyb'@'%' IDENTIFIED by 'wppass';"
-# mysql -e "GRANT ALL PRIVILEGES ON wordpress.* TO 'yed-dyb'@'%';"
-# mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '12345';"
-# mysql -e "FLUSH PRIVILEGES;"
+mysql -e "CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`"
+mysql -e "CREATE USER '\`${MYSQL_USER}\`'@'%' IDENTIFIED by '\`${MYSQL_PASSWORD}\`';"
+mysql -e "GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '\`${MYSQL_USER}\`'@'%';"
+mysql -e "FLUSH PRIVILEGES;"
 
 service mysql stop
 

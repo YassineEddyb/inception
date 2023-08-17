@@ -12,7 +12,7 @@ clean: down
 
 fclean: clean 
 	# @docker rm -fv $$(docker ps -aq)
-	@docker volume rm $$(docker volume ls -q)
+	@docker volume rm -f $$(docker volume ls -q)
 	@docker system prune -af --volumes
 	@docker network prune -f
 	@docker volume prune -f
