@@ -25,12 +25,12 @@ services:
     container_name: nginx
     build: ./requirements/nginx/.
     image: nginx
+    volumes:
+      - wordpress:/var/www/html
     ports:
      - "443:443"
     depends_on:
       - wordpress
-    volumes:
-     - wordpress:/var/www/html
     networks:
       - inception
     env_file:
@@ -50,16 +50,20 @@ services:
     restart: always
   
   wordpress:
-    container_name: wordpress
+    container_name: wordpresss
     build: ./requirements/wordpress/.
-    image: wordpress
-    depends_on:
-      - mariadb
+    image: wordpresss
     volumes:
       - wordpress:/var/www/html
+    depends_on:
+      - mariadb
     env_file:
       - .env
     networks:
       - inception
     restart: always
- 
+
+
+# volumes:
+#   db:
+#   wordpress:

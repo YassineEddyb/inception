@@ -10,12 +10,15 @@ down:
 
 clean: down
 
-fclean: clean 
+fclean: clean
 	# @docker rm -fv $$(docker ps -aq)
 	@docker volume rm -f $$(docker volume ls -q)
 	@docker system prune -af --volumes
+	@docker image prune -f
 	@docker network prune -f
 	@docker volume prune -f
+	@docker image rm -f $$(docker image ls -aq)
+
 
 re:	fclean
 	@docker-compose -f srcs/docker-compose.yml up --build -d
