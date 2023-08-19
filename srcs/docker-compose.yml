@@ -37,10 +37,10 @@ services:
     restart: always
 
   mariadb:
-    container_name: mariadbb
+    container_name: mariadb
     build: ./requirements/mariadb/.
-    volumes:
-      - mariadb:/var/lib/mysql
+    # volumes:
+    #   - mariadb:/var/lib/mysql
     env_file:
       - .env
     networks:

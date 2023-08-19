@@ -8,9 +8,4 @@ COPY ./conf/my.cnf /etc/mysql/my.cnf
 
 COPY ./tools/script.sh /tmp/script.sh
 
-ENV MYSQL_HOSTNAME=mariadb
-ENV MYSQL_DATABASE=wordpress
-ENV MYSQL_USER=yed-dyb
-ENV MYSQL_PASSWORD=wppass
-
 ENTRYPOINT [ "sh", "/tmp/script.sh" ]

@@ -2,9 +2,9 @@
 
 service mysql start
 
-mysql -e "CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`"
-mysql -e "CREATE USER '\`${MYSQL_USER}\`'@'%' IDENTIFIED by '\`${MYSQL_PASSWORD}\`';"
-mysql -e "GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO '\`${MYSQL_USER}\`'@'%';"
+mysql -e "CREATE DATABASE IF NOT EXISTS $DB_DATABASE"
+mysql -e "CREATE DATABASE IF NOT EXISTS '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD';"
+mysql -e "GRANT ALL PRIVILEGES ON \`${DB_DATABASE}\`.* TO \`${DB_USER}\`@'%' IDENTIFIED BY '${DB_PASSWORD}';"
 mysql -e "FLUSH PRIVILEGES;"
 
 service mysql stop

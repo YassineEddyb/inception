@@ -4,19 +4,6 @@ RUN apt-get update && apt-get upgrade -y
 RUN apt-get install curl -y
 RUN apt-get install -y php7.3 php-fpm php-mysql mariadb-client
 
-ENV WP_TITLE=MyBlog
-ENV WP_ADMIN_USR=yed-dyb
-ENV WP_ADMIN_PWD=wppass
-ENV WP_ADMIN_EMAIL=dyb@example.com
-ENV WP_USR=user1
-ENV WP_EMAIL=user1@example.com
-ENV WP_PWD=yed-dyb123
-ENV MYSQL_HOSTNAME=mariadb
-ENV MYSQL_DATABASE=wordpress
-ENV MYSQL_USER=yed-dyb
-ENV MYSQL_PASSWORD=wppass
-ENV MYSQL_ROOT_PASSWORD=rootpass
-
 RUN mkdir /tmp/script.sho
 
 COPY ./tools/script.sh /tmp/script.sh
